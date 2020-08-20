@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:galaga="http://www.galaga.com/schema/rpc/galaga"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.galaga.com/schema/rpc/galaga
+       http://www.galaga.com/schema/rpc/galaga.xsd">
+
+    <context:component-scan base-package="owen.galaga.rpc"/>
+
+    <galaga:registry id="testRegistry" protocol="zookeeper" address="192.168.31.130:2181"/>
+
+    <galaga:consumer id="helloService" interface="owen.galaga.rpc.demo.api.HelloService" alias="dev" timeout="1000"/>
+
+</beans>
