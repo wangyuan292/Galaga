@@ -113,6 +113,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
                 ProviderConfig providerConfig = providerConfigMap.get(beanName);
                 String serviceName = providerConfig.getInterfaceI().getName();
                 handlerMap.put(serviceName, providerConfig);
+                beanMap.put(serviceName, applicationContext.getBean(providerConfig.getRef()));
             }
         }
 
@@ -125,15 +126,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             }
         }
 
-        //接口实现类
-        Map<String, Object> implBeans = applicationContext.getBeansWithAnnotation(Galaga.class);
-        if (!CollectionUtils.isEmpty(implBeans)){
-            for (Object serviceBean: implBeans.values()) {
-                Galaga galaga = serviceBean.getClass().getAnnotation(Galaga.class);
-                String serviceName = galaga.value().getName();
-                beanMap.put(serviceName, serviceBean);
-            }
-        }
     }
 
     private GSUrl buildGsurl(String host, int port, ProviderConfig providerConfig, String registryAddress) {

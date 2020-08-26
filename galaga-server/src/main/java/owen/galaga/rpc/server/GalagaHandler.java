@@ -66,7 +66,6 @@ public class GalagaHandler implements Callable<RpcResponse> {
                 rpcResponse = new RpcResponse();
                 rpcResponse.setRequestId(rpcRequest.getRequestId());
                 rpcResponse.setResult(object);
-                LOGGER.info(Thread.currentThread().getName());
                 LOGGER.info("galaga server 响应 {} 结果 {}", rpcRequest.getRequestId(), rpcResponse.toString());
                 channel.writeAndFlush(rpcResponse).addListener(ChannelFutureListener.CLOSE);
             }

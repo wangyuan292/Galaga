@@ -1,4 +1,4 @@
-package owen.galaga.rpc.server;
+package owen.galaga.rpc.common.annotation;
 
 import org.springframework.stereotype.Component;
 
@@ -16,6 +16,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Component
+@Deprecated
 public @interface Galaga {
     Class<?> value();
 }

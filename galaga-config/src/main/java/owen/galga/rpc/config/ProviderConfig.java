@@ -27,7 +27,13 @@ public class ProviderConfig<T> extends AbstractServiceConfig {
 
     private Class<T> interfaceI;
 
-    private Integer timeouit;
+    private Integer timeOut;
+
+    private String ref;
+
+    public String getRef() { return ref; }
+
+    public void setRef(String ref) { this.ref = ref; }
 
     public String getAlias() {
         return alias;
@@ -45,11 +51,7 @@ public class ProviderConfig<T> extends AbstractServiceConfig {
         this.interfaceI = interfaceI;
     }
 
-    public Integer getTimeouit() {
-        return timeouit;
-    }
+    public Integer getTimeOut() { return timeOut; }
 
-    public void setTimeouit(Integer timeouit) {
-        this.timeouit = timeouit;
-    }
+    public void setTimeOut(Integer timeOut) { this.timeOut = timeOut; }
 }

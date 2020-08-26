@@ -54,13 +54,16 @@ public class GalagaServerDefinitionParser implements BeanDefinitionParser {
 
     private BeanDefinition parseProviderConfig(Element element, ParserContext parserContext) {
         //<galaga:consumer id="testConsum" interface="com.test." alias="dev" timeout="1000"/>
+        String ref = element.getAttribute("ref");
         String beanId = element.getAttribute("id");
         String alias = element.getAttribute("alias");
         String timeOut = element.getAttribute("timeOut");
         String interfaceName = element.getAttribute("interface");
 
         RootBeanDefinition definition = new RootBeanDefinition();
+        definition.getPropertyValues().add("ref", ref);
         definition.getPropertyValues().add("alias", alias);
+        definition.getPropertyValues().add("timeOut", timeOut);
         definition.getPropertyValues().add("interfaceI", interfaceName);
         definition.setBeanClass(ProviderConfig.class);
         definition.setAutowireMode(RootBeanDefinition.AUTOWIRE_BY_TYPE);
