@@ -16,6 +16,7 @@
         <module>galaga-config</module>
         <module>galaga-demo</module>
         <module>galaga-cluster</module>
+        <module>galaga-filter</module>
     </modules>
 
     <dependencies>

@@ -11,6 +11,7 @@
 
     <groupId>owen.galaga.rpc.client</groupId>
     <artifactId>galaga-client</artifactId>
+    <packaging>pom</packaging>
     <build>
         <plugins>
             <plugin>
@@ -23,6 +24,9 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>../galaga-filter</module>
+    </modules>
 
 
     <dependencies>
