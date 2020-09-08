@@ -3,7 +3,11 @@ package owen.galaga.rpc.common.base;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Owen.Wang
@@ -25,6 +29,7 @@ public class GSUrl implements Serializable {
     private String insKey;
     private long dataVersion;
     private String registryAddress;
+    private Map<String, String> parameters;
 
 
     public GSUrl() {}
@@ -156,6 +161,17 @@ public class GSUrl implements Serializable {
         this.registryAddress = registryAddress;
     }
 
+    public Map<String, String> getParameters() {
+        return parameters;
+    }
+
+    public String cacheKey() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.iface).append(this.alias).append(this.host).append(this.port);
+        buildParameters(sb, true, this.parameters);
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -169,8 +185,8 @@ public class GSUrl implements Serializable {
                 .append(iface).append('\"');
         sb.append(",\"alias\":\"")
                 .append(alias).append('\"');
-        sb.append(",\"protocol\":")
-                .append(protocol);
+        sb.append(",\"protocol\":\"")
+                .append(protocol).append('\"');
         sb.append(",\"attrs\":")
                 .append(attrs);
         sb.append(",\"timeout\":")
@@ -185,7 +201,33 @@ public class GSUrl implements Serializable {
                 .append(dataVersion);
         sb.append(",\"registryAddress\":\"")
                 .append(registryAddress).append('\"');
+        sb.append(",\"parameters\":")
+                .append(parameters);
         sb.append('}');
         return sb.toString();
     }
+
+    private void buildParameters(StringBuilder buf, boolean concat, Map<String, String> parameters) {
+        if (getParameters() != null && getParameters().size() > 0) {
+            List<String> includes = (parameters == null || parameters.keySet().size() == 0 ? null : new ArrayList<String>(parameters.keySet()));
+            boolean first = true;
+            for (Map.Entry<String, String> entry : new TreeMap<String, String>(getParameters()).entrySet()) {
+                if (entry.getKey() != null && entry.getKey().length() > 0
+                        && (includes == null || includes.contains(entry.getKey()))) {
+                    if (first) {
+                        if (concat) {
+                            buf.append("?");
+                        }
+                        first = false;
+                    } else {
+                        buf.append("&");
+                    }
+                    buf.append(entry.getKey());
+                    buf.append("=");
+                    buf.append(entry.getValue() == null ? "" : entry.getValue().trim());
+                }
+            }
+        }
+    }
+
 }

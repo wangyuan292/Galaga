@@ -11,6 +11,13 @@
 
     <groupId>owen.galaga.rpc.filter</groupId>
     <artifactId>galaga-filter</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>owen.galaga.rpc.common</groupId>
+            <artifactId>galaga-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
